@@ -19,25 +19,24 @@ jobs:
           - doc
     runs-on: ubuntu-latest
     permissions: {}
-    env:
-      branch_name: ${{matrix.branch_name}}
     if: >-
       github.event.pull_request.user.login != 'renovate[bot]' &&
-      contains(github.head_ref, github.env.branch_name)
+      contains(github.head_ref, matrix.branch_name)
     steps:
+      - name: "Output docker image url"
+        run: echo 'BRANCH_NAME=${{matrix.branch_name}}' >> $GITHUB_ENV
       - name: Generate token
         id: generate_token
         uses: tibdex/github-app-token@b62528385c34dbc9f38e5f4225ac829252d1ea92 # v1.8.0
+        if: contains(github.head_ref, env.BRANCH_NAME)
         with:
           app_id: ${{secrets.gh_app_id}}
           private_key: ${{secrets.gh_app_private_key}}
       - run: |
-          echo ${{github.env.branch_name}}
           if [[ "$HEAD_REF" == *"${{matrix.branch_name}}"* ]]; then
             echo "HEADブランチに '${{matrix.branch_name}}' が含まれています。"
             # gh -R "$GITHUB_REPOSITORY" pr edit "$PR_NUMBER" --add-label "feature"
           fi
-        if: contains(github.head_ref, github.env.branch_name)
         env:
           GITHUB_TOKEN: ${{steps.generate_token.outputs.token}}
           PR_NUMBER: ${{github.event.pull_request.number}}

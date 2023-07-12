@@ -1,0 +1,12 @@
+name: test
+
+on: pull_request
+
+jobs:
+  job1:
+    permissions:
+      contents: read
+    uses: ./.github/workflows/main.yaml
+    secrets:
+      gh_app_id: ${{secrets.GH_APP_ID}}
+      gh_app_private_key: ${{secrets.GH_APP_PRIVATE_KEY}}

@@ -36,6 +36,7 @@ jobs:
             echo "HEADブランチに '${{matrix.branch_name}}' が含まれています。"
             # gh -R "$GITHUB_REPOSITORY" pr edit "$PR_NUMBER" --add-label "feature"
           fi
+        if: contains(github.head_ref, github.env.branch_name)
         env:
           GITHUB_TOKEN: ${{steps.generate_token.outputs.token}}
           PR_NUMBER: ${{github.event.pull_request.number}}

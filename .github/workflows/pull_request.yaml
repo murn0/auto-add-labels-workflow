@@ -5,7 +5,7 @@ jobs:
   auto-merge:
     permissions:
       contents: read
-    uses: murn0/renovate-automerge-workflow/.github/workflows/main.yaml@62d0e754796dcc8527ea74b9f16a0652ff60a77d # v0.2.0
+    uses: murn0/renovate-automerge-workflow/.github/workflows/main.yaml@c8427d93a3a906a38a7cb6e0e09630704fe760bb # v0.3.0
     with:
       filters: |
         ghalint:

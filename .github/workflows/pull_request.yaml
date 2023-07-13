@@ -2,7 +2,7 @@ name: Pull Request
 on: pull_request
 
 jobs:
-  test:
+  auto-merge:
     permissions:
       contents: read
     uses: murn0/renovate-automerge-workflow/.github/workflows/main.yaml@62d0e754796dcc8527ea74b9f16a0652ff60a77d # v0.2.0
